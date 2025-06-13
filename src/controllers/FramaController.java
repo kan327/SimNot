@@ -8,6 +8,5 @@ public class FramaController {
   public FramaController(FramaView view) {
     this.view = view;
   }
-
   // ...
 }
