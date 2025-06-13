@@ -104,7 +104,7 @@ WARNING: This will delete all data if exists. Are you sure? (Y/n):
 File: `src/config/DBConnection.java`
 
 ```java
-private static final String URL = "jdbc:mysql://localhost:8081/apotek";
+private static final String URL = "jdbc:mysql://localhost:8081/your_db";
 private static final String USER = "root";
 private static final String PASS = "";
 ```
