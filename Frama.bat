@@ -1,0 +1,3 @@
+@echo off
+javac -d app\bin app\Framav1.java
+java -cp app\bin app.Framav1 %*

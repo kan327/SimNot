@@ -1,0 +1,13 @@
+package controllers;
+
+import views.{{ClassName}}View;
+
+public class {{ClassName}}Controller {
+  private {{ClassName}}View view;
+
+  public {{ClassName}}Controller({{ClassName}}View view) {
+    this.view = view;
+  }
+
+  // ...
+}
