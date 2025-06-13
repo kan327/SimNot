@@ -1,3 +1,0 @@
-#!/bin/bash
-javac -d app/bin app/Main.java
-java -cp app/bin app.Main "$@"

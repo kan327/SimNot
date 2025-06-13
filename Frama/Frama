@@ -1,0 +1,3 @@
+#!/bin/bash
+javac -d app/bin app/framav1.java
+java -cp app/bin app.framav1 "$@"
