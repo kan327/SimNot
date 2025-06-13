@@ -11,15 +11,34 @@ public class Migrations {
                 System.out.println("Running migrations...");
 
             // users Migrations =========================================
-            stmt.executeUpdate("DROP TABLE IF EXISTS your_table_name");
+            stmt.executeUpdate("DROP TABLE IF EXISTS user");
             String createTableSql = """
-                CREATE TABLE your_table_name (
-                    id INT PRIMARY KEY AUTO_INCREMENT,
-                    dateTime DATETIME DEFAULT CURRENT_TIMESTAMP
+                CREATE TABLE user (
+                    user_id INT PRIMARY KEY AUTO_INCREMENT ,
+                    email VARCHAR(100) NOT NULL UNIQUE,
+                    password VARCHAR(255) NOT NULL,
+                    user_name VARCHAR(100) NOT NULL, 
+                    date_time DATETIME DEFAULT CURRENT_TIMESTAMP
                 );
             """;
-            System.out.println("Created table your_table_name !");
+            System.out.println("Berhasil jalankan tabel user");
             stmt.executeUpdate(createTableSql);
+            // ===========================================================
+
+            // Catatan Migration =========================================
+            stmt.executeUpdate("DROP TABLE IF EXISTS catatan");
+            String createCatatan = """
+                CREATE TABLE catatan (
+                    catatan_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                    desekripsi TEXT,
+                    judul VARCHAR(100) NOT NULL, 
+                    date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    user_id INT NOT NULL,
+                    FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
+                );
+            """;
+            System.out.println("Berhasil jalankan tabel catatan");
+            stmt.executeUpdate(createCatatan);
             // ===========================================================
 
             // Menampilkan pesan sukses
