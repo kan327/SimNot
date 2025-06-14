@@ -3,5 +3,11 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "java.addExports": [
+"javax.swing",
+"java.awt"
+]
+
+
 }

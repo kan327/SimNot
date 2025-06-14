@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            new views.FramaView();
+            new views.LoginView();
         });
     }
 }

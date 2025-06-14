@@ -1,7 +1,7 @@
 package views;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 // import java.awt.event.ActionListener;
 
 public class FramaView extends JFrame {
@@ -40,7 +40,8 @@ public class FramaView extends JFrame {
         startButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         startButton.addActionListener(e -> {
             // Contoh: navigasi ke controller selanjutnya
-            JOptionPane.showMessageDialog(this, "Navigasi ke controller...");
+            new LoginView();  // panggil view halaman berikutnya
+            dispose();
         });
 
         // Bottom panel

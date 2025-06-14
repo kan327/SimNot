@@ -5,12 +5,19 @@ import java.awt.*;
 
 public class {{ClassName}}View extends JFrame {
     public {{ClassName}}View() {
-        setTitle("Frama - Welcome");
-        JPanel mainPanel = new JPanel();
+        setTitle("Ini title");
+        setSize(648, 598);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // tengah
+
+        // panel utama
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(240, 240, 240)); // abu-abu terang
+        panel.setLayout(null);
 
         // ...Code here
 
-        add(mainPanel);
+        add(panel);
         setVisible(true);
     }
 }
