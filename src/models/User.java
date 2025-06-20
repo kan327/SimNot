@@ -37,44 +37,62 @@ public class User {
             stmt.setString(1, email);
             stmt.setString(2, password);
             stmt.setString(3, user_name);
-            stmt.executeUpdate();
+            return stmt.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean update( ) {
-        try (Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("")
-            ) {
-            // ...
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean delete( ) {
-        try (Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("")) {
-            // ...
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static User getById( ) {
+    public static User getById(int userId) {
         try (
             Connection conn = DBConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("")
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE user_id = ?")
             ) {
-            // ...
+                stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("user_id"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("user_name"),
+                    rs.getTimestamp("date_time")
+                );
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean update(String email, String password, String user_name, int user_id) {
+        // Perhatikan bahwa user_name seharusnya String, bukan int
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE user SET email = ?, password = ?, user_name = ? WHERE user_id = ?")) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            stmt.setString(3, user_name);
+            stmt.setInt(4, user_id);
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean delete(int userId) {
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE user_id = ?")) 
+            {
+            stmt.setInt(1, userId);
+            return stmt.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }
