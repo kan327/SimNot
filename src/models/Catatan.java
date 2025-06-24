@@ -25,7 +25,7 @@ public class Catatan {
         try (Connection conn = DBConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement("", Statement.RETURN_GENERATED_KEYS)
             ) {
-            // ...
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

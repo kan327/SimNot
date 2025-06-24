@@ -93,6 +93,27 @@ public class User {
             e.printStackTrace();
         }
         return false;
-    }
+    } 
+    public static User login(String email, String password) {
+        try (Connection conn = DBConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM user WHERE email = ? AND password = ?")) {
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery(); 
 
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("user_id"),
+                    rs.getString("email"),
+                    rs.getString("password"),
+                    rs.getString("user_name"),
+                    rs.getTimestamp("date_time")
+                );
+            } else {
+                return null; // User not found
+            }
+        } catch (Exception e) {
+            e.printStackTrace() ;
+        }
+    }
 }
