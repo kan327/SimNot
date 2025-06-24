@@ -37,7 +37,7 @@ public class User {
             stmt.setString(1, email);
             stmt.setString(2, password);
             stmt.setString(3, user_name);
-            return stmt.executeUpdate() > 0;
+            stmt.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

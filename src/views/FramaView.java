@@ -48,6 +48,7 @@ public class FramaView extends JFrame {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setBackground(Color.BLACK);
         bottomPanel.add(startButton);
+        
 
         // Vertical box
         Box box = Box.createVerticalBox();

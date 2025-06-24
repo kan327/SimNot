@@ -55,6 +55,10 @@ public class LoginView extends JFrame {
         btnRegister.setContentAreaFilled(false);
         btnRegister.setForeground(Color.BLACK);
         btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnRegister.addActionListener((actionEvent) -> {
+            new RegisterView();
+            dispose();
+        });
         panel.add(btnRegister);
 
         // Tombol Login
@@ -66,6 +70,10 @@ public class LoginView extends JFrame {
         btnLogin.setFocusPainted(false);
         btnLogin.setBorderPainted(false); // opsional
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnLogin.addActionListener((actionEvent) -> {
+            new HomeView();
+            dispose();
+        });
         panel.add(btnLogin);
 
         // Dummy logo (lingkaran warna-warni)

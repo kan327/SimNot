@@ -4,10 +4,10 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
+    
     "java.addExports": [
-"javax.swing",
-"java.awt"
-]
-
+        "javax.swing",
+        "java.awt"
+    ]
 
 }
