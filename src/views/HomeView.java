@@ -2,6 +2,7 @@ package views;
 
 import java.awt.*;
 import javax.swing.*;
+import models.User;
 
 public class HomeView extends JFrame {
     public HomeView() {
@@ -38,10 +39,11 @@ public class HomeView extends JFrame {
         headerPanel.add(labelTitle);
 
         // Username
-        JLabel labelUser = new JLabel("JhonDoe");
+        JLabel labelUser = new JLabel();
         labelUser.setFont(new Font("Arial", Font.PLAIN, 14));
         labelUser.setHorizontalAlignment(SwingConstants.RIGHT);
         labelUser.setBounds(530, 5, 100, 20);
+        labelUser.setText(User.currentUser != null ? User.currentUser.getUser_name() : "Unknown");
         headerPanel.add(labelUser);
 
         // Logout
@@ -108,9 +110,6 @@ public class HomeView extends JFrame {
         btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         searchPanel.add(Box.createHorizontalStrut(10));
         searchPanel.add(btnEdit);
-        
-
-            
 
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setOpaque(false);

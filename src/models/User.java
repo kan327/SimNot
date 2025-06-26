@@ -10,6 +10,7 @@ public class User {
     private String user_name;
     private Timestamp date_time;
     //belum ditambah disini nih
+    public static User currentUser;
 
     // Constructors
     public User() {}
@@ -37,7 +38,10 @@ public class User {
             stmt.setString(1, email);
             stmt.setString(2, password);
             stmt.setString(3, user_name);
-            stmt.executeUpdate();
+
+            int result = stmt.executeUpdate();
+
+            return result > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +118,7 @@ public class User {
             }
         } catch (Exception e) {
             e.printStackTrace() ;
+            return null;
         }
     }
 }

@@ -1,7 +1,6 @@
 package models;
 
 import config.DBConnection;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,9 +103,7 @@ public class Catatan {
         return null;
      
     }
-
-}
-public static List<Catatan> getAll() {
+    public static List<Catatan> getAll() {
         List<Catatan> catatanList = new ArrayList<>();
         String sql = "SELECT * FROM catatan";
         try (Connection conn = DBConnection.getConnection();
@@ -125,3 +122,5 @@ public static List<Catatan> getAll() {
         }
         return catatanList;
     }
+
+}

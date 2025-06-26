@@ -1,8 +1,10 @@
 package views;
 
+import controllers.LoginController;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import models.User;
 
 public class LoginView extends JFrame {
     public LoginView() {
@@ -71,8 +73,24 @@ public class LoginView extends JFrame {
         btnLogin.setBorderPainted(false); // opsional
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnLogin.addActionListener((actionEvent) -> {
-            new HomeView();
-            dispose();
+            String email = emailField.getText().trim();
+    String password = new String(passField.getPassword()).trim();
+
+    if (email.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Email dan Password tidak boleh kosong!");
+        return;
+    }
+
+    User user = LoginController.login(email, password); // Panggil via controller
+
+    if (user != null) {
+        User.currentUser = user;
+        JOptionPane.showMessageDialog(null, "Login berhasil! Hai, " + user.getUser_name());
+        new HomeView(); // masuk ke home
+        dispose();
+    } else {
+        JOptionPane.showMessageDialog(null, "Email atau password salah!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+    }
         });
         panel.add(btnLogin);
 
