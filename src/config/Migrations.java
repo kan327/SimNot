@@ -8,6 +8,7 @@ public class Migrations {
             Connection conn = DBConnection.getConnection();
             Statement stmt = conn.createStatement()
             ) {
+                stmt.execute("SET FOREIGN_KEY_CHECKS = 0");
                 System.out.println("Running migrations...");
 
             // users Migrations =========================================
@@ -42,6 +43,7 @@ public class Migrations {
             // ===========================================================
 
             // Menampilkan pesan sukses
+            stmt.execute("SET FOREIGN_KEY_CHECKS = 1");
             System.out.println("Migrations berhasil dijalankan!");
         } catch (Exception e) {
             e.printStackTrace();
