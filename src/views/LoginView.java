@@ -76,23 +76,22 @@ public class LoginView extends JFrame {
         btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnLogin.addActionListener((actionEvent) -> {
             String email = emailField.getText().trim();
-    String password = new String(passField.getPassword()).trim();
+            String password = new String(passField.getPassword()).trim();
 
-    if (email.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Email dan Password tidak boleh kosong!");
-        return;
-    }
+            if (email.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Email dan Password tidak boleh kosong!");
+                return;
+            }
 
-    User user = LoginController.login(email, password); // Panggil via controller
-
-    if (user != null) {
-        UserStorage.setLocalUser(user.getUser_id(), user.getEmail(), user.getPassword(), user.getUser_name(), user.getDate_time());
-        JOptionPane.showMessageDialog(null, "Login berhasil! Hai, " + user.getUser_name());
-        new HomeView(); // masuk ke home
-        dispose();
-    } else {
-        JOptionPane.showMessageDialog(null, "Email atau password salah!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
-    }
+            User user = LoginController.login(email, password); // Panggil via controller
+            if (user != null) {
+                UserStorage.setLocalUser(user.getUser_id(), user.getEmail(), user.getPassword(), user.getUser_name(), user.getDate_time());
+                JOptionPane.showMessageDialog(null, "Login berhasil! Hai, " + user.getUser_name());
+                new HomeView(); // masuk ke home
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email atau password salah!", "Login Gagal", JOptionPane.ERROR_MESSAGE);
+            }
         });
         panel.add(btnLogin);
 

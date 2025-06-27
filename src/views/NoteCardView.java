@@ -8,7 +8,6 @@ import models.Catatan;
 public class NoteCardView extends JPanel {
 
     public NoteCardView(Catatan data) {
-        System.out.println("NoteCardView initialized with data: " + data.getId());
         setPreferredSize(new Dimension(574, 150)); // tinggi card
         setMaximumSize(new Dimension(574, 150)); // 🔒 Batas maksimal
         setMinimumSize(new Dimension(574, 150)); // 🔒 Batas minimal

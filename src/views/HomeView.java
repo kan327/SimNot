@@ -154,7 +154,6 @@ public class HomeView extends JFrame {
         } else {
             noteCardPanel.setAlignmentY(Component.TOP_ALIGNMENT);
             for (Catatan item : catatanList) {
-                System.out.println("Adding note card for ID: " + item.getId());
                 noteCardPanel.add(new NoteCardView(item));
                 noteCardPanel.add(Box.createVerticalStrut(10));
             }

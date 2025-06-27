@@ -32,10 +32,6 @@ public class FormView extends JFrame {
         if (method.equals("Edit")) {
             data = FormController.initData(id);
         }
-        System.out.println("FormView initialized with ID: " + id);
-        System.out.println(method + " method selected");
-        System.out.println(data != null ? "Data loaded successfully" : "No data to edit");
-        System.out.println(data.getJudul() + " - " + data.getIsi());
 
         setSize(648, 598);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -179,8 +175,6 @@ public class FormView extends JFrame {
             } else {
                 res = FormController.updateNote(id, titleField.getText(), noteArea.getText());
             }
-
-            System.out.println(res);
 
             if (res) {
                 new HomeView();

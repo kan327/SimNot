@@ -11,10 +11,8 @@ public class LoginController {
   }
 
   public static User login(String email, String password) {
-    User user = User.login(email, password);
-
-    return user;
-
     
+    User user = User.login(email, password);
+    return user;
   }
 }

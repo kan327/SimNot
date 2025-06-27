@@ -100,9 +100,6 @@ public class RegisterView extends JFrame {
             String password = new String(passField.getPassword()).trim();
             String confirmPassword = new String(confirmField.getPassword()).trim();
 
-            System.out.println("Email yang dikirim: " + email);
-
-
             if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Kolom tidak boleh kosong!");
             } else if (!password.equals(confirmPassword)) {
