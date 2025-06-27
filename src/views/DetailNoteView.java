@@ -1,17 +1,24 @@
 package views;
 
+import controllers.DetailNoteController;
 import java.awt.*;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.*;
 
+import lib.UserStorage;
+import models.Catatan;
+import models.User;
+
 public class DetailNoteView extends JFrame {
-    public DetailNoteView() {
+    public DetailNoteView(int id) {
+        Catatan data = DetailNoteController.initData(id);
+
         setTitle("SIMNOT - Home");
         setSize(648, 598);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
-
-        
 
         // ================== HEADER ==================
         JPanel headerPanel = new JPanel();
@@ -39,14 +46,13 @@ public class DetailNoteView extends JFrame {
         labelTitle.setBounds(67, 15, 100, 30);
         headerPanel.add(labelTitle);
 
-        // Username
-        JLabel labelUser = new JLabel("JhonDoe");
+        User user = UserStorage.getLocalUser();
+        JLabel labelUser = new JLabel(user.getUser_name());
         labelUser.setFont(new Font("Arial", Font.PLAIN, 14));
         labelUser.setHorizontalAlignment(SwingConstants.RIGHT);
-        labelUser.setBounds(530, 5, 100, 20);
+        labelUser.setBounds(510, 5, 100, 20);
         headerPanel.add(labelUser);
 
-        // Logout
         JButton btnLogout = new JButton("<HTML><u>Logout</u></HTML>");
         btnLogout.setFont(new Font("Arial", Font.PLAIN, 12));
         btnLogout.setForeground(Color.RED);
@@ -55,7 +61,8 @@ public class DetailNoteView extends JFrame {
         btnLogout.setFocusPainted(false);
         btnLogout.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnLogout.setBounds(543, 25, 100, 20);
-        btnLogout.addActionListener((actionEvent) -> {
+        btnLogout.addActionListener(e -> {
+            UserStorage.clearLocalUser();
             new LoginView();
             dispose();
         });
@@ -86,12 +93,36 @@ public class DetailNoteView extends JFrame {
         contentPanel.add(btnBack);
         contentPanel.add(Box.createVerticalStrut(10));
 
+        // JButton btnEdit = new JButton("  Edit  ");
+        // btnEdit.setFont(new Font("Arial", Font.PLAIN, 16));
+        // btnEdit.setBackground(Color.decode("#FF9800"));
+        // btnEdit.setForeground(Color.WHITE);
+        // btnEdit.setOpaque(true);
+        // btnEdit.setFocusPainted(false);
+        // btnEdit.setBorderPainted(false);
+        // btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // btnEdit.addActionListener((actionEvent) -> {
+        //     new FormView(id);
+        //     dispose();
+        // });
+        // contentPanel.add(btnEdit);
+
+        // JButton btnDelete = new JButton("Delete");
+        // btnDelete.setFont(new Font("Arial", Font.PLAIN, 16));
+        // btnDelete.setBackground(Color.decode("#F44336"));
+        // btnDelete.setForeground(Color.WHITE);
+        // btnDelete.setOpaque(true);
+        // btnDelete.setFocusPainted(false);
+        // btnDelete.setBorderPainted(false);
+        // btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        // contentPanel.add(btnDelete);
+
         // Judul dan tombol edit/delete
         JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.setOpaque(false);
         titlePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel("Todays Activity - Untitled");
+        JLabel titleLabel = new JLabel(data.getJudul());
         titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
         titlePanel.add(titleLabel, BorderLayout.WEST);
 
@@ -99,36 +130,13 @@ public class DetailNoteView extends JFrame {
         actionPanel.setOpaque(false);
         actionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 0));
 
-        JButton btnEdit = new JButton("  Edit  ");
-        btnEdit.setFont(new Font("Arial", Font.PLAIN, 16));
-        btnEdit.setBackground(Color.decode("#FF9800"));
-        btnEdit.setForeground(Color.WHITE);
-        btnEdit.setOpaque(true);
-        btnEdit.setFocusPainted(false);
-        btnEdit.setBorderPainted(false);
-        btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnEdit.addActionListener((actionEvent) -> {
-            new EditView();
-            dispose();
-        });
-        actionPanel.add(btnEdit);
-
-        JButton btnDelete = new JButton("Delete");
-        btnDelete.setFont(new Font("Arial", Font.PLAIN, 16));
-        btnDelete.setBackground(Color.decode("#F44336"));
-        btnDelete.setForeground(Color.WHITE);
-        btnDelete.setOpaque(true);
-        btnDelete.setFocusPainted(false);
-        btnDelete.setBorderPainted(false);
-        btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        actionPanel.add(btnDelete);
-
         titlePanel.add(actionPanel, BorderLayout.EAST);
         contentPanel.add(titlePanel);
 
         contentPanel.add(Box.createVerticalStrut(5));
 
-        JLabel dateLabel = new JLabel("28, Jun 2025");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd, MMM yyyy");
+        JLabel dateLabel = new JLabel(data.getDate_time().toLocalDateTime().toLocalDate().format(formatter));
         dateLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         dateLabel.setForeground(Color.DARK_GRAY);
         dateLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -137,7 +145,7 @@ public class DetailNoteView extends JFrame {
         contentPanel.add(Box.createVerticalStrut(20));
 
         JTextArea noteArea = new JTextArea(
-            "This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,.....This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,.....This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,.....This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,.....This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,....."
+            data.getIsi()
         );
         noteArea.setLineWrap(true);
         noteArea.setWrapStyleWord(true);
@@ -158,6 +166,6 @@ public class DetailNoteView extends JFrame {
     }
 
     public static void main(String[] args) {
-        new DetailNoteView();
+        new DetailNoteView(0);
     }
 }

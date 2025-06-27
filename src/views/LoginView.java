@@ -1,6 +1,8 @@
 package views;
 
 import controllers.LoginController;
+import lib.UserStorage;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -84,7 +86,7 @@ public class LoginView extends JFrame {
     User user = LoginController.login(email, password); // Panggil via controller
 
     if (user != null) {
-        User.currentUser = user;
+        UserStorage.setLocalUser(user.getUser_id(), user.getEmail(), user.getPassword(), user.getUser_name(), user.getDate_time());
         JOptionPane.showMessageDialog(null, "Login berhasil! Hai, " + user.getUser_name());
         new HomeView(); // masuk ke home
         dispose();

@@ -31,9 +31,9 @@ public class Migrations {
             String createCatatan = """
                 CREATE TABLE catatan (
                     catatan_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-                    desekripsi TEXT,
+                    isi TEXT,
                     judul VARCHAR(100) NOT NULL, 
-                    date_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    date_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                     user_id INT NOT NULL,
                     FOREIGN KEY (user_id) REFERENCES user(user_id) ON DELETE CASCADE
                 );

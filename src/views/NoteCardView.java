@@ -1,11 +1,17 @@
 package views;
 
+import controllers.HomeController;
 import java.awt.*;
 import javax.swing.*;
+import models.Catatan;
 
 public class NoteCardView extends JPanel {
-    public NoteCardView() {
+
+    public NoteCardView(Catatan data) {
+        System.out.println("NoteCardView initialized with data: " + data.getId());
         setPreferredSize(new Dimension(574, 150)); // tinggi card
+        setMaximumSize(new Dimension(574, 150)); // 🔒 Batas maksimal
+        setMinimumSize(new Dimension(574, 150)); // 🔒 Batas minimal
         setBackground(Color.decode("#E0E0E0"));
         setLayout(new BorderLayout());
 
@@ -16,7 +22,7 @@ public class NoteCardView extends JPanel {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 5, 15)); // padding
 
         // Title
-        JLabel titleNoteLabel = new JLabel("Todays Activity - Untitled");
+        JLabel titleNoteLabel = new JLabel(data.getJudul());
         titleNoteLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleNoteLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
@@ -28,7 +34,7 @@ public class NoteCardView extends JPanel {
 
         // Note Text (wrap pakai HTML)
         JLabel labelNote = new JLabel(
-            "<html>This morning, I started my day with a quick workout to get energized. After that, I had a healthy breakfast with some oatmeal and fruit. Then,.....</html>"
+                "<html>" + data.getIsi() + "</html>"
         );
         labelNote.setFont(new Font("Arial", Font.PLAIN, 14));
         labelNote.setForeground(Color.BLACK);
@@ -57,11 +63,10 @@ public class NoteCardView extends JPanel {
         btnView.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnView.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                new DetailNoteView();
+                new DetailNoteView(data.getId());
                 SwingUtilities.getWindowAncestor(NoteCardView.this).dispose(); // nutup frame
             }
         });
-
 
         // Tombol kanan (Edit dan Delete)
         JPanel rightBtnPanel = new JPanel();
@@ -74,13 +79,42 @@ public class NoteCardView extends JPanel {
         btnEdit.setContentAreaFilled(false);
         btnEdit.setBorderPainted(false);
         btnEdit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                new FormView(data.getId());
+                SwingUtilities.getWindowAncestor(NoteCardView.this).dispose(); // nutup frame
+            }
+        });
 
-        JButton btnDelete = new JButton("<HTML><u>Delete</u></HTML>");
+            JButton btnDelete = new JButton("<HTML><u>Delete</u></HTML>");
         btnDelete.setFont(new Font("Arial", Font.PLAIN, 14));
         btnDelete.setForeground(Color.RED);
         btnDelete.setContentAreaFilled(false);
         btnDelete.setBorderPainted(false);
         btnDelete.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnDelete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                int confirm = JOptionPane.showConfirmDialog(
+                        NoteCardView.this,
+                        "Are you sure you want to delete this note?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION
+                );
+                if (confirm == JOptionPane.YES_OPTION) {
+                    boolean res = HomeController.destroyCatatan(data.getId());
+                    if (res) {
+                        Container parent = NoteCardView.this.getParent();
+                        if (parent != null) {
+                            parent.remove(NoteCardView.this);
+                            parent.revalidate();
+                            parent.repaint();
+                        }
+                        JOptionPane.showMessageDialog(NoteCardView.this, "Note deleted successfully.");
+                    }
+
+                }
+            }
+        });
 
         rightBtnPanel.add(btnEdit);
         rightBtnPanel.add(btnDelete);

@@ -1,8 +1,10 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "src"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "c:\\penyimpanan\\codingan\\HTML\\kumpulan coba coba web\\website-semikompleks\\testarea\\coba coba aja\\java here\\Frama\\lib\\mysql-connector-j-9.2.0.jar"
     ],
     
     "java.addExports": [

@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:mysql://tramway.proxy.rlwy.net:57989/railway?useSSL=false&tcpKeepAlive=true";
+    private static final String URL = "jdbc:mysql://tramway.proxy.rlwy.net:57989/railway";
     private static final String USER = "root";
     private static final String PASS = "pkTNePlkjblmgkKsSZVojOxUgulITkuR";
+
 
 
     public static Connection getConnection() {

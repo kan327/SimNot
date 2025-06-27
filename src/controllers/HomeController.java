@@ -1,7 +1,10 @@
 package controllers;
 
 import java.util.List;
+
+import lib.UserStorage;
 import models.Catatan;
+import models.User;
 import views.HomeView;
 
 public class HomeController {
@@ -11,9 +14,18 @@ public class HomeController {
     this.view = view;
   }
 
-
   public static List<Catatan> getAllCatatan() {
-    return Catatan.getAll();
+    User user = UserStorage.getLocalUser();
+
+    if (user != null) {
+      return Catatan.getAll(user.getUser_id());
+    }
+    
+    return null;
+  }
+
+  public static boolean destroyCatatan(int id) {
+    return Catatan.delete(id);
   }
 
   
